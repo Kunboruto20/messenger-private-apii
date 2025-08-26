@@ -27,7 +27,7 @@
     "protocol",
     "messaging"
   ],
-  "author": "Your Name",
+  "author": "Kunboruto20",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.6.0",
@@ -51,10 +51,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/messenger-private-api.git"
+    "url": "https://github.com/Kunboruto20/messenger-private-apii.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/messenger-private-api/issues"
+    "url": "https://github.com/Kunboruto20/messenger-private-apii/issues"
   },
-  "homepage": "https://github.com/yourusername/messenger-private-api#readme"
+  "homepage": "https://github.com/Kunboruto20/messenger-private-apii#readme"
 }
