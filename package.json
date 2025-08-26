@@ -2,13 +2,21 @@
   "name": "messenger-private-api",
   "version": "1.0.0",
   "description": "A Node.js library that completely emulates the Messenger mobile app and allows real interactions with Messenger servers",
-  "main": "src/index.js",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "src/**/*",
+    "examples/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "jest",
     "lint": "eslint src/",
-    "example": "node examples/basic-usage.js"
+    "example": "node examples/basic-usage.js",
+    "build": "cp src/index.js index.js"
   },
   "keywords": [
     "messenger",

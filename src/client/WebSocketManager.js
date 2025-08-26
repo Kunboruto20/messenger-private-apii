@@ -13,15 +13,15 @@ class WebSocketManager extends EventEmitter {
     super();
     
     this.client = client;
-    this.network = client.network;
+    this.options = client.options || {};
     
     // WebSocket state
     this.ws = null;
     this.isConnected = false;
     this.isConnecting = false;
     this.reconnectAttempts = 0;
-    this.maxReconnectAttempts = 5;
-    this.reconnectDelay = 1000;
+    this.maxReconnectAttempts = this.options.maxReconnectAttempts || 5;
+    this.reconnectDelay = this.options.reconnectDelay || 1000;
     this.heartbeatInterval = null;
     this.heartbeatTimeout = null;
     
@@ -31,6 +31,19 @@ class WebSocketManager extends EventEmitter {
     
     // Setup message handlers
     this._setupMessageHandlers();
+  }
+  
+  /**
+   * Setup message handlers for different message types
+   */
+  _setupMessageHandlers() {
+    // Register default message handlers
+    this.messageHandlers.set('message', this._handleIncomingMessage.bind(this));
+    this.messageHandlers.set('typing', this._handleTypingIndicator.bind(this));
+    this.messageHandlers.set('read_receipt', this._handleReadReceipt.bind(this));
+    this.messageHandlers.set('online_status', this._handleOnlineStatus.bind(this));
+    this.messageHandlers.set('acknowledgment', this._handleAcknowledgment.bind(this));
+    this.messageHandlers.set('heartbeat', this._handleHeartbeat.bind(this));
   }
   
   /**
@@ -191,7 +204,7 @@ class WebSocketManager extends EventEmitter {
    */
   async _getConnectionInfo() {
     try {
-      const response = await this.network.post(Endpoints.GRAPHQL, {
+      const response = await this.client.network.post(Endpoints.GRAPHQL, {
         query: `
           query GetWebSocketInfo {
             websocketInfo {
